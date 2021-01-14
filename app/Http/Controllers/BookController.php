@@ -15,9 +15,15 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
-        return Book::get();
+        $book = Book::get();
+        if($book && $book->count() > 0){
+            return response(['message' => 'Show data successful', 'data' => $authors], 200);
+ 
+        }else{
+        return response(['message' => 'No data to be displayed', 'data' => null], 404);
     }
+        
+}
 
     /**
      * Show the form for creating a new resource.
@@ -56,8 +62,15 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
-        return Book::find($id);
+        $book = Book::find();
+        if ($authors && $authors->count() > 0) {
+            return response(['message' => 'Show data successful', 'data' => $authors], 200);
+ 
+        }else{
+        return response(['message' => 'No data to be displayed', 'data' => null], 404);
+    }
+        
+        
     }
 
     /**
@@ -88,6 +101,13 @@ class BookController extends Controller
             "publisher" => $request->publisher,
             "date_of_issue" => $request->date_of_issue,
         ]);
+
+            if($book && $book->count() > 0){
+                return response(['message' => 'Show data successful', 'data' => $authors], 200);
+     
+            }
+            return response(['message' => 'No data to be displayed', 'data' => null], 404);
+        
     }
 
     /**
@@ -99,6 +119,17 @@ class BookController extends Controller
     public function destroy($id)
     {
         //
+        
         return Book::destroy($id);
+        if($book){
+            $book->delete();
+            return response([], 204);
+ 
+        }else{
+            return response(['message' => 'Update data failed', 'data' => null], 406);
+
+        }
+        
+    
     }
 }
